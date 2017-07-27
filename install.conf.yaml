@@ -1,0 +1,22 @@
+- clean: ['~']
+- link:
+    ~/.tmux.conf: tmux.conf
+    ~/.bashrc:
+      path: bashrc
+      force: true
+    ~/.bash_profile:
+      path: bash_profile
+      force: true
+    ~/.vimrc:
+      path: vimrc
+      force: true
+    ~/.gitconfig:
+      path: gitconfig
+      force: true
+    ~/.gitignore_global:
+      path: gitignore_global
+      force: true
+- shell:
+  - git submodule update --init --recursive
+  - vim +PlugInstall +qall
+  - vim +PromtlineSnapshot .dotfiles/promptline.sh +TmuxlineSnapshot .dotfiles/tmuxline.tmux.conf +qall

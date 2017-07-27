@@ -1,0 +1,52 @@
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[user]
+	name = Alex Axthelm
+	email = AAxthelm@che.in.gov
+	signingkey = 81F7F60A
+[push]
+	default = matching
+[core]
+	excludesfile = /Users/alex/.gitignore_global
+	autocrlf = input
+[color]
+	ui = true
+[pull]
+	rebase = true
+[branch]
+	autosetuprebase = always
+[rerere]
+	enabled = true
+[diff]
+	tool = vimdiff
+[credential]
+	helper = cache --timeout=3600
+[alias]
+	last = log -1 --stat
+	cp = cherry-pick
+	co = checkout
+	cl = clone
+	ci = commit
+	st = status -sb
+	br = branch
+	unstage = reset HEAD --
+	dc = diff --cached
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
+	s = status -s
+	co = checkout
+	cob = checkout -b
+	pushall = !git remote | xargs -L1 git push --all
+  pf = pull --ff-only
+ 	merge-to = "!gitmergeto() { git push \"`git rev-parse --show-toplevel`\" `git rev-parse --abbrev-ref HEAD`:$1; } && gitmergeto"
+[mergetool]
+	keeptemporaries = false
+	keepbackups = false
+	prompt = false
+	trustexitcode = false
+[merge]
+	tool = fugitive
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
