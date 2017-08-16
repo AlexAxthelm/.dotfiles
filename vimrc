@@ -30,40 +30,45 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-markdown'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'suan/vim-instant-markdown'
-Plug 'vim-latex/vim-latex'
+" Plug 'tpope/vim-markdown'
+" Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'suan/vim-instant-markdown'
+" Plug 'vim-latex/vim-latex'
 Plug 'altercation/vim-colors-solarized'
-Plug 'reedes/vim-pencil'
-Plug 'mikewest/vimroom'
-Plug 'parkr/vim-jekyll'
-Plug 'ervandew/screen'
+" Plug 'reedes/vim-pencil'
+" Plug 'mikewest/vimroom'
+" Plug 'parkr/vim-jekyll'
+" Plug 'ervandew/screen'
 Plug 'jalvesaq/Nvim-R'
-Plug 'junegunn/vim-emoji'
-Plug 'valloric/youcompleteme'
+" Plug 'junegunn/vim-emoji'
+" Plug 'valloric/youcompleteme'
 " Plug 'scrooloose/nerdcommenter'
 " Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'luochen1990/rainbow'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'luochen1990/rainbow'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
-Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/syntastic'
+" Plug 'tpope/vim-speeddating'
+" Plug 'easymotion/vim-easymotion'
+" Plug 'scrooloose/syntastic'
 Plug 'benmills/vimux'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-unimpaired'
-Plug 'gilsondev/searchtasks.vim'
-Plug 'https://github.com/jaxbot/github-issues.vim'
-Plug 'jaxbot/semantic-highlight.vim'
+" Plug 'gilsondev/searchtasks.vim'
+" Plug 'https://github.com/jaxbot/github-issues.vim'
+" Plug 'jaxbot/semantic-highlight.vim'
 Plug 'djoshea/vim-autoread'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 Plug 'edkolev/promptline.vim'
+Plug 'zef/vim-cycle'
+Plug 'ajh17/VimCompletesMe'
+Plug 'vim-scripts/AutoComplPop'
+Plug 'w0rp/ale'
+Plug 'jiang-hang/vim4roxygen2'
 
 call plug#end()
 
@@ -116,8 +121,60 @@ let g:promptline_preset = {
 	\'z': [ promptline#slices#vcs_branch(), promptline#slices#jobs() ],
 	\'warn': [ promptline#slices#battery(), promptline#slices#last_exit_code() ]}
 let g:promptline_theme = 'airline'
+let g:promptline_symbols = {'truncation' : '…'}
+
 
 " http://stackoverflow.com/a/23704021/7571303
+" An example for a vimrc file.
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2011 Apr 15
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"	      for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"	    for OpenVMS:  sys$login:.vimrc
+
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+	finish
+endif
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" let vimplug install itself
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-markdown'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'suan/vim-instant-markdown'
+" Plug 'vim-latex/vim-latex'
+Plug 'altercation/vim-colors-solarized'
+" Plug 'reedes/vim-pencil'
+" Plug 'mikewest/vimroom'
+" Plug 'parkr/vim-jekyll'
+" Plug 'ervandew/screen'
+Plug 'jalvesaq/Nvim-R'
+" Plug 'junegunn/vim-emoji'
+" Plug 'valloric/youcompleteme'
+" Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 " swap files (.swp) in a common location
 " // means use the file's full path
 set directory=~/.vim/_swap//
@@ -188,10 +245,13 @@ set hlsearch
 set t_Co=256                        " force vim to use 256 colors
 set background=light
 " let g:solarized_termcolors=256
-" solarized options
-let g:solarized_visibility = "high"
+		" solarized options
+let g:solarized_visibility = "low"
 let g:solarized_contrast = "high"
 colorscheme solarized
+
+	set listchars=eol:¬,tab:←→,trail:~,extends:>,precedes:<,space:·
+set list
 
 " Hopefully fix the lv command for latexvim
 " hel from
@@ -299,20 +359,27 @@ nnoremap <leader>R :RainbowToggle
 
 set completefunc=emoji#complete
 
-" Syntastic Defaults
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" " Syntastic Defaults
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
-"Enable lintr in R
-let g:syntastic_enable_r_lintr_checker = 1
-let g:syntastic_r_checkers = ['lintr']
-let g:syntastic_rmd_checkers = ['lintr', 'text/proselint']
+" "Enable lintr in R
+" let g:syntastic_enable_r_lintr_checker = 1
+" let g:syntastic_r_checkers = ['lintr']
+" let g:syntastic_rmd_checkers = ['lintr', 'text/proselint']
 
-" map a leader shorcut to jump to the next linter flag
-map <leader>ll :lnext<CR>
-map <leader>kk :lprev<CR>
+" ALE settings
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_column_always = 1
+let g:ale_open_list = 1
+let g:ale_set_loclist = 1
+let g:ale_r_lintr_options = 'lintr::with_defaults(object_usage_linter = NULL)'
+
+" " map a leader shorcut to jump to the next linter flag
+map [l <Plug>(ale_previous_wrap)
+map ]l <Plug>(ale_next_wrap)
 
 " allow vimux to be my maker
 map <Leader><Leader>m :w<CR> :call VimuxRunCommand("time make")<CR>
@@ -332,7 +399,7 @@ let NERDSpaceDelims=1
 let R_in_buffer = 0
 let R_applescript = 0
 let R_tmux_split = 1
-let R_args = ['--vanilla']
+let R_args = ['--no-save --no-restore --quiet']
 let R_nvim_wd = 1
 
 " let's map leader to be the space bar. That sounds useful
