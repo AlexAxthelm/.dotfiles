@@ -102,79 +102,29 @@ let g:tmuxline_preset = {
 	\'z'       : ['#(whoami)', '#(~/.dotfiles/bin/getipfortmux || hostname)'],
 	\'options' : {'status-justify': 'left'}}
 
-"Promptline - :PromptlineSnapshot! ~/.dotfiles/.promptline.sh airline
-"These functions disable the host and user when in tmux, as they are shown in
-"  the bottom right corner of the window
-fun! Joshthegeek_promptline_host(...)
-	" host is \h in bash, %m in zsh
-	return '$([[ -n ${TMUX-} ]] && exit 1; [[ -n ${ZSH_VERSION-} ]] && print %m || printf "%s" \\h)'
-endfun
+" "Promptline - :PromptlineSnapshot! ~/.dotfiles/.promptline.sh airline
+" "These functions disable the host and user when in tmux, as they are shown in
+" "  the bottom right corner of the window
+" fun! Joshthegeek_promptline_host(...)
+" 	" host is \h in bash, %m in zsh
+" 	return '$([[ -n ${TMUX-} ]] && exit 1; [[ -n ${ZSH_VERSION-} ]] && print %m || printf "%s" \\h)'
+" endfun
 
-fun! Joshthegeek_promptline_user(...)
-	" user is \u in bash, %n in zsh
-	return '$([[ -n ${TMUX-} ]] && exit 1; [[ -n ${ZSH_VERSION-} ]] && print %n || printf "%s" \\u)'
-endfun
+" fun! Joshthegeek_promptline_user(...)
+" 	" user is \u in bash, %n in zsh
+" 	return '$([[ -n ${TMUX-} ]] && exit 1; [[ -n ${ZSH_VERSION-} ]] && print %n || printf "%s" \\u)'
+" endfun
 
-let g:promptline_preset = {
-	\'a': [ Joshthegeek_promptline_host(), Joshthegeek_promptline_user() ],
-	\'b': [ promptline#slices#cwd({ 'dir_limit': 2 }) ],
-	\'z': [ promptline#slices#vcs_branch(), promptline#slices#jobs() ],
-	\'warn': [ promptline#slices#battery(), promptline#slices#last_exit_code() ]}
-let g:promptline_theme = 'airline'
-let g:promptline_symbols = {'truncation' : '…'}
+" let g:promptline_preset = {
+" 	\'a': [ Joshthegeek_promptline_host(), Joshthegeek_promptline_user() ],
+" 	\'b': [ promptline#slices#cwd({ 'dir_limit': 2 }) ],
+" 	\'z': [ promptline#slices#vcs_branch(), promptline#slices#jobs() ],
+" 	\'warn': [ promptline#slices#battery(), promptline#slices#last_exit_code() ]}
+" let g:promptline_theme = 'airline'
+" let g:promptline_symbols = {'truncation' : '…'}
 
 
 " http://stackoverflow.com/a/23704021/7571303
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2011 Apr 15
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-	finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" let vimplug install itself
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-markdown'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'suan/vim-instant-markdown'
-" Plug 'vim-latex/vim-latex'
-Plug 'altercation/vim-colors-solarized'
-" Plug 'reedes/vim-pencil'
-" Plug 'mikewest/vimroom'
-" Plug 'parkr/vim-jekyll'
-" Plug 'ervandew/screen'
-Plug 'jalvesaq/Nvim-R'
-" Plug 'junegunn/vim-emoji'
-" Plug 'valloric/youcompleteme'
-" Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'luochen1990/rainbow'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
 " swap files (.swp) in a common location
 " // means use the file's full path
 set directory=~/.vim/_swap//
