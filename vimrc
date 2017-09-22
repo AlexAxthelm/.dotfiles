@@ -33,7 +33,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'tpope/vim-markdown'
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'suan/vim-instant-markdown'
-" Plug 'vim-latex/vim-latex'
+Plug 'vim-latex/vim-latex'
 Plug 'altercation/vim-colors-solarized'
 " Plug 'reedes/vim-pencil'
 " Plug 'mikewest/vimroom'
@@ -67,8 +67,9 @@ Plug 'edkolev/promptline.vim'
 Plug 'zef/vim-cycle'
 Plug 'ajh17/VimCompletesMe'
 Plug 'vim-scripts/AutoComplPop'
-Plug 'w0rp/ale'
-Plug 'jiang-hang/vim4roxygen2'
+" Plug 'w0rp/ale'
+Plug 'alexaxthelm/ale'
+Plug 'iveksl2/goodr'
 
 call plug#end()
 
@@ -171,7 +172,7 @@ let g:Tex_MultipleCompileFormats='pdf, aux'
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 " map a double semi-colon to the escape function
-inoremap ;; <Esc>
+inoremap jj <Esc>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -326,6 +327,7 @@ let g:ale_sign_column_always = 1
 let g:ale_open_list = 1
 let g:ale_set_loclist = 1
 let g:ale_r_lintr_options = 'lintr::with_defaults(object_usage_linter = NULL)'
+let g:ale_linters = {'markdown': ['proselint', 'vale']}
 
 " " map a leader shorcut to jump to the next linter flag
 map [l <Plug>(ale_previous_wrap)
@@ -355,3 +357,6 @@ let R_nvim_wd = 1
 " let's map leader to be the space bar. That sounds useful
 let mapleader ="\<space>"
 let maplocalleader ="\<space>"
+
+:map fd :r ~/.vim/plugged/goodr/roxygen_skeleton.R <ENTER>
+:map td :r ~/.vim/plugged/goodr/testthat_skeleton.R <ENTER>
